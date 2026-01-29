@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choucroute SMP | Infos Factions</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="logo.webp">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #ffe58f;
+            --dark: #0b0b0f;
+            --dark-2: #111119;
+            --dark-3: #1a1a25;
+            --text: #ffffff;
+            --muted: #b3b3b3;
+            --accent: linear-gradient(135deg, #d4af37, #f7d774, #b8962e);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #12121a, #07070c);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER / NAVBAR ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 215, 100, 0.15);
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1300px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .site-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            transition: 0.25s;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold-light);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 42px;
+            left: 0;
+            background: var(--dark-2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            min-width: 180px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .btn-staff a {
+            background: var(--accent);
+            color: #0b0b0f;
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 10px 20px;
+            box-shadow: 0 0 20px rgba(212,175,55,0.35);
+            transition: 0.25s;
+        }
+
+        .btn-staff a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(212,175,55,0.55);
+        }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header {
+            margin-top: 90px;
+            padding: 7rem 1rem 4rem;
+            text-align: center;
+            background:
+                linear-gradient(rgba(5,5,10,0.7), rgba(5,5,10,0.9)),
+                url('https://images.unsplash.com/photo-1612197524053-52ccf5f1b9c7?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header img {
+            width: 200px;
+            max-width: 80%;
+            margin: 1rem auto 0;
+            display: block;
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .section {
+            padding: 5rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--muted);
+            max-width: 700px;
+            margin: auto;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== RULES / INFO BLOCKS ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: linear-gradient(145deg, #111119, #0b0b10);
+            border: 1px solid rgba(212,175,55,0.18);
+            border-radius: 18px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(212,175,55,0.12), transparent 60%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+
+        .info-card h3 {
+            color: var(--gold-light);
+            margin-bottom: 0.6rem;
+            font-size: 1.3rem;
+        }
+
+        .info-card p,
+        .info-card li {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .info-card ul {
+            padding-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-card li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* ===== FACTION LIST ===== */
+        .faction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .faction-card {
+            background: linear-gradient(145deg, #111119, #0b0b10);
+            border: 1px solid rgba(212,175,55,0.18);
+            border-radius: 18px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faction-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(212,175,55,0.12), transparent 60%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .faction-card:hover::before {
+            opacity: 1;
+        }
+
+        .faction-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+
+        .faction-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .faction-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 15px rgba(212,175,55,0.4);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .faction-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .faction-meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .faction-description {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .faction-stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .faction-stat {
+            background: rgba(212,175,55,0.08);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            padding: 0.6rem 0.8rem;
+            text-align: center;
+            flex: 1;
+        }
+
+        .faction-stat strong {
+            display: block;
+            color: var(--gold-light);
+            font-size: 1rem;
+        }
+
+        .faction-stat span {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
+            border-top: 1px solid rgba(212,175,55,0.25);
+            border-bottom: 1px solid rgba(212,175,55,0.25);
+            padding: 5rem 1rem;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta p {
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0b0b0f;
+            padding: 14px 32px;
+            border-radius: 999px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 0 30px rgba(212,175,55,0.45);
+            transition: 0.25s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 40px rgba(212,175,55,0.7);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark-2);
+            border-top: 1px solid rgba(212,175,55,0.15);
+            padding: 3rem 1rem 1.5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            color: var(--gold-light);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.25s;
+        }
+
+        .footer-column a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="logo.webp" alt="Choucroute SMP Logo">
+            </div>
+            <div class="site-title">Choucroute SMP</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li class="dropdown">
+                <a href="#">Faction</a>
+                <div class="dropdown-content">
+                    <a href="notations.html">Notations</a>
+                    <a href="infos-faction.html">Infos Factions</a>
+                </div>
+            </li>
+            <li class="btn-staff"><a href="#">Staff</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="page-header">
+    <h1>Infos Factions</h1>
+    <p>Tout savoir sur le système de factions de Choucroute SMP</p>
+    <img src="logo.webp" alt="Choucroute SMP Logo">
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Règles & Fonctionnement</h2>
+        <p class="section-subtitle">
+            Découvrez les règles principales et le fonctionnement général des factions.
+        </p>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Création de faction</h3>
+                <p>Chaque joueur peut créer ou rejoindre une faction via les commandes du serveur.</p>
+                <ul>
+                    <li>Nom unique obligatoire</li>
+                    <li>Chef et co-chefs désignés</li>
+                    <li>Base protégée par claims</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Claims & Territoires</h3>
+                <p>Les territoires sont protégés afin d'éviter le grief et les abus.</p>
+                <ul>
+                    <li>Nombre de claims limité par niveau</li>
+                    <li>Protection contre les explosions</li>
+                    <li>Zones sécurisées pour les nouveaux joueurs</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Guerres & Raids</h3>
+                <p>Les combats entre factions sont régulés pour rester équilibrés.</p>
+                <ul>
+                    <li>Raids autorisés en horaires définis</li>
+                    <li>Protection anti-offline raid</li>
+                    <li>Système de guerre officiel</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Économie & Classement</h3>
+                <p>Chaque faction gagne de l'argent et des points pour monter dans le classement.</p>
+                <ul>
+                    <li>Commerce entre factions</li>
+                    <li>Récompenses hebdomadaires</li>
+                    <li>Classement public</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Factions Actives</h2>
+        <p class="section-subtitle">
+            Voici quelques-unes des factions actuellement présentes sur le serveur.
+        </p>
+
+        <div class="faction-grid">
+            <!-- EXISTANTES -->
+            <div class="faction-card">
+                <div class="faction-header">
+                    <div class="faction-logo" style="background-image:url('https://mc-heads.net/avatar/Notch/64')"></div>
+                    <div>
+                        <div class="faction-name">Arasaka</div>
+                        <div class="faction-meta">Chef : Epseo45</div>
+                    </div>
+                </div>
+                <p class="faction-description">
+                    Faction puissante axée sur l'économie et la domination territoriale.
+                </p>
+                <div class="faction-stats">
+                    <div class="faction-stat">
+                        <strong>000</strong>
+                        <span>Points</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>5</strong>
+                        <span>Membres</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>#1</strong>
+                        <span>Classement</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faction-card">
+                <div class="faction-header">
+                    <div class="faction-logo" style="background-image:url('https://mc-heads.net/avatar/Jeb_/64')"></div>
+                    <div>
+                        <div class="faction-name">NoxAeterna</div>
+                        <div class="faction-meta">Chef : diablo0651</div>
+                    </div>
+                </div>
+                <p class="faction-description">
+                    Spécialisée dans le PvP et les raids stratégiques.
+                </p>
+                <div class="faction-stats">
+                    <div class="faction-stat">
+                        <strong>000</strong>
+                        <span>Points</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>5</strong>
+                        <span>Membres</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>#2</strong>
+                        <span>Classement</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faction-card">
+                <div class="faction-header">
+                    <div class="faction-logo" style="background-image:url('https://mc-heads.net/avatar/Steve/64')"></div>
+                    <div>
+                        <div class="faction-name">Sargoose</div>
+                        <div class="faction-meta">Chef : Lord2Dino6</div>
+                    </div>
+                </div>
+                <p class="faction-description">
+                    Faction équilibrée entre défense, construction et commerce.
+                </p>
+                <div class="faction-stats">
+                    <div class="faction-stat">
+                        <strong>000</strong>
+                        <span>Points</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>2</strong>
+                        <span>Membres</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>#3</strong>
+                        <span>Classement</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOUVELLES FACTIONS -->
+            <div class="faction-card">
+                <div class="faction-header">
+                    <div class="faction-logo" style="background-image:url('https://mc-heads.net/avatar/Alex/64')"></div>
+                    <div>
+                        <div class="faction-name">Luminaris</div>
+                        <div class="faction-meta">Chef : Midnight Soul</div>
+                    </div>
+                </div>
+                <p class="faction-description">
+                    Faction axée sur la construction massive et l'esthétique.
+                </p>
+                <div class="faction-stats">
+                    <div class="faction-stat">
+                        <strong>000</strong>
+                        <span>Points</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>5</strong>
+                        <span>Membres</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>#4</strong>
+                        <span>Classement</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faction-card">
+                <div class="faction-header">
+                    <div class="faction-logo" style="background-image:url('https://mc-heads.net/avatar/Herobrine/64')"></div>
+                    <div>
+                        <div class="faction-name">Vacant</div>
+                        <div class="faction-meta">Chef : X</div>
+                    </div>
+                </div>
+                <p class="faction-description">
+                    Faction discrète spécialisée dans l'espionnage et les embuscades.
+                </p>
+                <div class="faction-stats">
+                    <div class="faction-stat">
+                        <strong>000</strong>
+                        <span>Points</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>0</strong>
+                        <span>Membres</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>#5</strong>
+                        <span>Classement</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faction-card">
+                <div class="faction-header">
+                    <div class="faction-logo" style="background-image:url('https://mc-heads.net/avatar/Dinnerbone/64')"></div>
+                    <div>
+                        <div class="faction-name">Vacant</div>
+                        <div class="faction-meta">Chef : X</div>
+                    </div>
+                </div>
+                <p class="faction-description">
+                    Faction défensive chargée de la protection des nouveaux joueurs.
+                </p>
+                <div class="faction-stats">
+                    <div class="faction-stat">
+                        <strong>000</strong>
+                        <span>Points</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>0</strong>
+                        <span>Membres</span>
+                    </div>
+                    <div class="faction-stat">
+                        <strong>#6</strong>
+                        <span>Classement</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2>Prêt à créer ou rejoindre une faction ?</h2>
+    <p>IP du serveur : <strong>play.choucroutesmp.fr</strong></p>
+    <a href="#" class="btn-primary">Rejoindre le serveur</a>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h4>Choucroute SMP</h4>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="#">Staff</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Communauté</h4>
+            <ul>
+                <li><a href="#">Discord</a></li>
+                <li><a href="#">Classements</a></li>
+                <li><a href="#">Règlement</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Légal</h4>
+            <ul>
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">CGU</a></li>
+                <li><a href="#">Confidentialité</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 Choucroute SMP — Tous droits réservés.
+    </div>
+</footer>
+
+</body>
+</html>

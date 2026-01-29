@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Choucroute SMP — Notations des Factions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="logo.webp">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #ffe58f;
+            --dark: #0b0b0f;
+            --dark-2: #111119;
+            --dark-3: #1a1a25;
+            --text: #ffffff;
+            --muted: #b3b3b3;
+            --accent: linear-gradient(135deg, #d4af37, #f7d774, #b8962e);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #12121a, #07070c);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER / NAVBAR ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 215, 100, 0.15);
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1300px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .site-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            transition: 0.25s;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold-light);
+        }
+
+        /* Dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 42px;
+            left: 0;
+            background: var(--dark-2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            min-width: 180px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Staff button */
+        .btn-staff a {
+            background: var(--accent);
+            color: #0b0b0f;
+            font-weight: 700;
+            border-radius: 999px;
+            padding: 10px 20px;
+            box-shadow: 0 0 20px rgba(212,175,55,0.35);
+            transition: 0.25s;
+        }
+
+        .btn-staff a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(212,175,55,0.55);
+        }
+
+        /* ===== HERO PAGE ===== */
+        .page-hero {
+            height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 1rem 0;
+            background:
+                linear-gradient(rgba(5,5,10,0.7), rgba(5,5,10,0.9)),
+                url('https://images.unsplash.com/photo-1606312619371-37f1f16d59e1?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .page-hero img {
+            width: 220px;
+            max-width: 80%;
+            margin: 1rem auto 0;
+            display: block;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            padding: 6rem 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: auto;
+            color: var(--muted);
+            margin-bottom: 3rem;
+        }
+
+        /* ===== FILTER BAR ===== */
+        .filter-bar {
+            max-width: 1100px;
+            margin: auto;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            background: var(--dark-2);
+            border: 1px solid rgba(212,175,55,0.25);
+            color: var(--text);
+            padding: 12px 16px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .filter-bar input::placeholder {
+            color: #777;
+        }
+
+        /* ===== NOTATION TABLE ===== */
+        .notation-table {
+            max-width: 1100px;
+            margin: auto;
+            background: linear-gradient(145deg, #111119, #0b0b10);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(212,175,55,0.15);
+        }
+
+        th, td {
+            padding: 1.2rem 1rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            color: var(--gold-light);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 0.8rem;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(212,175,55,0.08);
+            transition: 0.25s;
+        }
+
+        tbody tr:hover {
+            background: rgba(212,175,55,0.08);
+        }
+
+        .faction-name {
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .score {
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .rank-badge {
+            background: var(--accent);
+            color: #0b0b0f;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            display: inline-block;
+            box-shadow: 0 0 12px rgba(212,175,55,0.4);
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            background: #1c1c2a;
+            border-radius: 999px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.7);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 999px;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
+            border-top: 1px solid rgba(212,175,55,0.25);
+            border-bottom: 1px solid rgba(212,175,55,0.25);
+            padding: 5rem 1rem;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta p {
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0b0b0f;
+            padding: 14px 32px;
+            border-radius: 999px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 0 30px rgba(212,175,55,0.45);
+            transition: 0.25s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 40px rgba(212,175,55,0.7);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark-2);
+            border-top: 1px solid rgba(212,175,55,0.15);
+            padding: 3rem 1rem 1.5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            color: var(--gold-light);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.25s;
+        }
+
+        .footer-column a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="logo.webp" alt="Choucroute SMP Logo">
+            </div>
+            <div class="site-title">Choucroute SMP</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li class="dropdown">
+                <a href="#">Faction</a>
+                <div class="dropdown-content">
+                    <a href="notations.html">Notations</a>
+                    <a href="infos-faction.html">Infos Factions</a>
+                </div>
+            </li>
+            <li class="btn-staff"><a href="#">Staff</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="page-hero">
+    <div>
+        <h1>Notations des Factions</h1>
+        <p>Classement officiel des factions de Choucroute SMP</p>
+        <img src="logo.webp" alt="Choucroute SMP Logo">
+    </div>
+</section>
+
+<section class="section">
+    <h2 class="section-title">Classement Général</h2>
+    <p class="section-subtitle">
+        Les factions sont évaluées selon leur puissance, activité, fair-play et performance PvP.
+    </p>
+
+    <div class="filter-bar">
+        <input type="text" placeholder="Rechercher une faction...">
+        <select>
+            <option>Filtrer par note</option>
+            <option>5 étoiles</option>
+            <option>4 étoiles et +</option>
+            <option>3 étoiles et +</option>
+        </select>
+    </div>
+
+    <div class="notation-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Faction</th>
+                    <th>Note</th>
+                    <th>Puissance</th>
+                    <th>Activité</th>
+                    <th>Fair-play</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="rank-badge">1</span></td>
+                    <td class="faction-name">Arasaka</td>
+                    <td class="score">0 / 5</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>🔥 X</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">2</span></td>
+                    <td class="faction-name">Sargoose</td>
+                    <td class="score">0 / 5</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>⚔️ X</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">3</span></td>
+                    <td class="faction-name">NoxAeterna</td>
+                    <td class="score">0 / 5</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>🛡️ X</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">4</span></td>
+                    <td class="faction-name">Luminaris</td>
+                    <td class="score">0 / 5</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>📈 X</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">5</span></td>
+                    <td class="faction-name">X</td>
+                    <td class="score">0 / 5</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </td>
+                    <td>⚠️ X</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="cta">
+    <h2>Ta faction veut apparaître ici ?</h2>
+    <p>Rejoins le serveur et bâtis ta légende de Choucroute.</p>
+    <a href="#" class="btn-primary">Rejoindre le serveur</a>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h4>Choucroute SMP</h4>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="#">Staff</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Communauté</h4>
+            <ul>
+                <li><a href="#">Discord</a></li>
+                <li><a href="#">Classements</a></li>
+                <li><a href="#">Règlement</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Légal</h4>
+            <ul>
+                <li><a href="#">Mentions légales</a></li>
+                <li><a href="#">CGU</a></li>
+                <li><a href="#">Confidentialité</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 Choucroute SMP — Tous droits réservés.
+    </div>
+</footer>
+
+</body>
+</html>
